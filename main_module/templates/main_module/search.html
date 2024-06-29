@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            background-color: black;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .title-container {
+            text-align: center;
+        }
+        .title-container img {
+            width: 50px;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            width: 300px;
+            background-color: white;
+            border-radius: 20px;
+            padding: 5px 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .search-bar {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            padding: 5px;
+            font-size: 16px;
+        }
+        .search-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        .search-button img {
+            width: 20px;
+            height: 20px;
+        }
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        button:hover {
+            background-color: grey;
+        }
+        .retro-text-container {
+            background-color: black;
+            padding: 20px;
+            display: inline-block;
+        }          
+        .retro-textS {
+            color: white;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            letter-spacing: 2px;
+            margin: 0;
+            padding: 0;
+        text-transform: uppercase;
+        }          
+        .underline {
+            height: 1px;
+            background-color: white;
+            margin-top: 2px;
+        }
+        .retro-textM {
+            color: white;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            letter-spacing: 3px;
+            margin: 0;
+            padding: 0;
+            text-transform: uppercase;
+        }
+        .retro-textMG {
+            color: lightgreen;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            letter-spacing: 3px;
+            margin: 0;
+            padding: 0;
+            text-transform: uppercase;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px; 
+        }
+        .image-container img {
+            width: 60px;
+            height: auto;
+        }
+        .retro-textL {
+            color: white;
+            font-family: 'Courier New', monospace;
+            font-size: 34px;
+            letter-spacing: 2px;
+            margin: 0;
+            padding: 0;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="title-container">
+        <span class="retro-textL">Hello Anon</span>
+        <img src="{% static 'admin/img/retro2.png' %}" alt="icon" style="width: 20px; height: auto;" >
+        <h2></h2>
+        <h2 class="retro-textM">Today your mission is to break out of</h2>
+        <h2 class="retro-textMG">The Echo Chamber</h2>
+    </div>
+    <div class="retro-text-container">
+        <p class="retro-textS">YOU MAY WONDER HOW YOU GOT THERE</p>
+        <div class="underline"></div>
+        
+        <div class="image-container"> 
+            <img src="{% static 'admin/img/jail.png' %}" alt="icon">
+        </div>
+
+      </div>
+      <form action="{% url 'search_results' %}" method="GET">
+        <div class="search-container">
+            <input type="text" name="query" class="search-bar" placeholder="">
+            <button type="submit" class="search-button">
+                <img src="{% static 'admin/img/search2.png' %}" alt="Search">
+            </button>
+        </div>
+    </form>
+</body>
+</html>
