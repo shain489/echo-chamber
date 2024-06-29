@@ -1,5 +1,3 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +8,40 @@
 </head>
 <body>
     <h1>Search Results</h1>
-    <p>You searched for: {{ query }}</p>
-    <!-- Add more content to display search results -->
+    <p>You searched for:  <a href="{{ query }}">{{ query }}</a></p>
+    
+    <h2>Article Analysis</h2>
+    {% comment %} <p>{{ analysis }}</p> {% endcomment %}
+    
+    <h3>Claims</h3>
+    <p>{{ claims }}</p>
+
+    <h3>Biases</h3>
+    <p>{{ biases }}</p>
+    
+    <h3>Overall Neutrality</h3>
+    <p>{{ overall_neutrality }}</p>
+    <p>{{ justification }}</p>
+
+
+    <h2>Supporting Articles</h2>
+    {% for key, article in supporting_articles.items %}
+        <h3>{{ article.query }}</h3>
+        <ul>
+            {% for url in article.urls %}
+                <li><a href="{{ url }}" target="_blank">{{ url }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+    
+    <h2>Opposing Articles</h2>
+    {% for key, article in opposing_articles.items %}
+        <h3>{{ article.query }}</h3>
+        <ul>
+            {% for url in article.urls %}
+                <li><a href="{{ url }}" target="_blank">{{ url }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
 </body>
 </html>
