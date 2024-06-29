@@ -5,6 +5,8 @@ from newspaper import Article
 import os
 import google.generativeai as genai
 from duckduckgo_search import DDGS
+from django.http import JsonResponse
+
 
 def extract_text_from_url(url):
     article = Article(url)
@@ -100,31 +102,49 @@ def search_view(request):
     return render(request, 'main_module/search.html')
     # return HttpResponse('hello')
 
-
-
 def search_results(request):
+    querylink = request.GET.get('query', '')
+    context = {
+        'query': querylink,
+    }
+    return render(request, 'main_module/search_results.html', context)
+
+def fetch_analysis(request):
     querylink = request.GET.get('query', '')
     genai.configure(api_key="AIzaSyAlGi5JFMx1KYPbsw2RvIVaFVHXMKRQ37o")
 
-    
-    # Process the query
     article_text = extract_text_from_url(querylink)
     analysis = analyze_article(article_text)
 
     claims, biases, overall_neutrality, justification = extract_analysis_components(analysis)
     claims = clean_queries(claims)
     biases = clean_queries(biases)
-    
-    print(analysis)
+
+    data = {
+        'claims': claims,
+        'biases': biases,
+        'overall_neutrality': overall_neutrality,
+        'justification': justification,
+    }
+
+    return JsonResponse(data)
+
+def fetch_articles(request):
+    querylink = request.GET.get('query', '')
+    genai.configure(api_key="AIzaSyAlGi5JFMx1KYPbsw2RvIVaFVHXMKRQ37o")
+
+    article_text = extract_text_from_url(querylink)
+    analysis = analyze_article(article_text)
+
+    claims, _, _, _ = extract_analysis_components(analysis)
+    claims = clean_queries(claims)
 
     supporting_queries = clean_queries(generate_search_queries(claims, support=True))
     opposing_queries = clean_queries(generate_search_queries(claims, support=False))
 
-    # Initialize dictionaries to store URLs
     supporting_articles = {}
     opposing_articles = {}
 
-    # Search for supporting articles
     for i, query in enumerate(supporting_queries.split('\n'), start=1):
         if query.strip():
             urls = ddg_search(query)
@@ -133,7 +153,6 @@ def search_results(request):
                 'urls': urls
             }
 
-    # Search for opposing articles
     for i, query in enumerate(opposing_queries.split('\n'), start=1):
         if query.strip():
             urls = ddg_search(query)
@@ -141,18 +160,10 @@ def search_results(request):
                 'query': query,
                 'urls': urls
             }
-    # Pass data to the template
-    context = {
-        'query': querylink,
-        'analysis': analysis,
-        'claims': claims,
-        'biases' : biases,
-        'overall_neutrality' : overall_neutrality,
-        'justification': justification,
+
+    data = {
         'supporting_articles': supporting_articles,
         'opposing_articles': opposing_articles
     }
 
-    return render(request, 'main_module/search_results.html', context)
-
-
+    return JsonResponse(data)

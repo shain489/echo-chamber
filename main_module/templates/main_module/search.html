@@ -2,34 +2,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search</title>
+    <title>EchoBreaker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
             color: white;
-            background-color: black;
+            background: linear-gradient(45deg, #241549, #000000);
             margin: 0;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             flex-direction: column;
+            padding-top: 120px;
         }
         .title-container {
             text-align: center;
+            margin-bottom: 30px;
         }
         .title-container img {
             width: 50px;
         }
+        .main-content {
+            display: flex;
+            position: relative;
+            z-index: 1;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
         .search-container {
             display: flex;
-            align-items: center;
-            width: 300px;
-            background-color: white;
+            align-items: center;            
+            max-width: 700px;
+            min-width: 300px;
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 5px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         .search-bar {
@@ -38,7 +54,8 @@
             outline: none;
             background: transparent;
             padding: 5px;
-            font-size: 16px;
+            font-family: 'DM Serif Display', serif;
+            color: #fff;
         }
         .search-button {
             background: none;
@@ -50,102 +67,120 @@
             width: 20px;
             height: 20px;
         }
-        button {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: white;
-            color: black;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-        button:hover {
-            background-color: grey;
-        }
-        .retro-text-container {
-            background-color: black;
-            padding: 20px;
-            display: inline-block;
-        }          
-        .retro-textS {
-            color: white;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            letter-spacing: 2px;
-            margin: 0;
-            padding: 0;
-        text-transform: uppercase;
-        }          
-        .underline {
-            height: 1px;
-            background-color: white;
-            margin-top: 2px;
-        }
-        .retro-textM {
-            color: white;
-            font-family: 'Courier New', monospace;
-            font-size: 18px;
-            letter-spacing: 3px;
-            margin: 0;
-            padding: 0;
-            text-transform: uppercase;
-        }
-        .retro-textMG {
-            color: lightgreen;
-            font-family: 'Courier New', monospace;
-            font-size: 18px;
-            letter-spacing: 3px;
-            margin: 0;
-            padding: 0;
-            text-transform: uppercase;
-        }
-        .image-container {
+
+        .navbar {
+            background-color: rgba(51, 51, 51, 0.25);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 40px;
+        }        
+        .navbar-container {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            margin: 20px; 
-        }
-        .image-container img {
-            width: 60px;
-            height: auto;
-        }
-        .retro-textL {
-            color: white;
-            font-family: 'Courier New', monospace;
-            font-size: 34px;
-            letter-spacing: 2px;
+            padding: 5px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 100%;
+        }               
+        .navbar-menu {
+            list-style-type: none;
+            display: flex;
             margin: 0;
             padding: 0;
-            text-transform: uppercase;
+        }        
+        .navbar-menu li {
+            margin-left: 20px;
+        }        
+        .navbar-menu li a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.7rem;
+        }        
+        .navbar-menu li a:hover {
+            text-decoration: underline;
+        }        
+        .logo-image {
+            height: 40px;
+            width: auto;
+        }
+        .logo-title-container {
+            display: flex;
+            align-items: center;
+        }        
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }        
+        .logo-image {
+            height: 40px;
+            width: auto;
+            padding-bottom: 5px;  
+        }        
+        .navbar-title {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
             font-weight: bold;
         }
-        
+        .title {
+            font-size: 4rem;
+        }
+        .description {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .highlight {
+            color: #4ce15c;
+        }
+        .gradient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top left, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 60%),
+                        radial-gradient(circle at bottom right, rgba(255,165,0,0.3) 0%, rgba(255,165,0,0) 60%);
+            mix-blend-mode: overlay;
+            pointer-events: none;
+        }
+
     </style>
 </head>
 <body>
-    <div class="title-container">
-        <span class="retro-textL">Hello Anon</span>
-        <img src="{% static 'admin/img/retro2.png' %}" alt="icon" style="width: 20px; height: auto;" >
-        <h2></h2>
-        <h2 class="retro-textM">Today your mission is to break out of</h2>
-        <h2 class="retro-textMG">The Echo Chamber</h2>
+    <div class="gradient-overlay"></div>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo-title-container">
+                <a href="#" class="navbar-logo">
+                    <img src="{% static 'admin/img/logo.png' %}" alt="EchoBreaker Logo" class="logo-image">
+                </a>
+                <a href="#" class="navbar-title">EchoBreaker</a>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main-content">
+        <div class="title-container">
+            <h1 class="title">Escape the <span class="highlight">Echo</span></h1>     
+            <h3 class="description">Challenge your Perspective and Discover diverse voices</h2>
+        </div>
+        <form action="{% url 'search_results' %}" method="GET">
+            <div class="search-container">
+                <input type="text" name="query" class="search-bar" placeholder="Search beyond your bubble">
+                <button type="submit" class="search-button">
+                    <img src="{% static 'admin/img/search3.png' %}" alt="Search">
+                </button>
+            </div>
+        </form>
     </div>
-    <div class="retro-text-container">
-        <p class="retro-textS">YOU MAY WONDER HOW YOU GOT THERE</p>
-        <div class="underline"></div>
-        
-        <div class="image-container"> 
-            <img src="{% static 'admin/img/jail.png' %}" alt="icon">
-        </div>
-
-      </div>
-      <form action="{% url 'search_results' %}" method="GET">
-        <div class="search-container">
-            <input type="text" name="query" class="search-bar" placeholder="">
-            <button type="submit" class="search-button">
-                <img src="{% static 'admin/img/search2.png' %}" alt="Search">
-            </button>
-        </div>
-    </form>
 </body>
 </html>
