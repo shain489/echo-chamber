@@ -1,0 +1,50 @@
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+*$py.class
+
+# Caches and logs
+*.log
+logs/
+*.cache/
+
+# Virtual environment
+myprojectenv/
+venv/
+env/
+bin/
+include/
+lib/
+pip-selfcheck.json
+
+# Local development settings
+local_settings.py
+
+# Database
+db.sqlite3
+*.sqlite3
+
+# Static files
+/staticfiles/
+
+# Media files
+/media/
+
+# Secret keys
+*.secret
+
+# IDE/Editor specific files
+.idea/
+.vscode/
+
+# Temporary files
+*.swp
+*.swo
+
+# Ignore .DS_Store files on macOS
+.DS_Store
+
+# Ignore node_modules directory for Node.js projects
+node_modules/
+
+# Ignore compiled Python files
+__pycache__/
