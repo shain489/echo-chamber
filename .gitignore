@@ -8,7 +8,6 @@ logs/
 *.cache/
 
 # Virtual environment
-myprojectenv/
 venv/
 env/
 bin/
